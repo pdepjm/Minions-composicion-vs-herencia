@@ -3,6 +3,8 @@ import minion.*
 describe "minion" {
 	var minionFeliz = new Minion(true)
 	var minionTriste = new Minion(false)
+	var minionBueno = new MinionBueno(true)
+	var minionMalo = new MinionMalo(true)
 	
 	test "al estar feliz ayuda dando 30 bananas" {
 		assert.equals(30, minionFeliz.ayuda())	
@@ -10,5 +12,14 @@ describe "minion" {
 	
 	test "al no estar ayuda solo da 5 bananas" {
 		assert.equals(5, minionTriste.ayuda())	
+	}
+	
+	test "el minion bueno produce un extra de 3 bananas" {
+		assert.equals(33, minionBueno.ayuda())	
+	}
+	
+	
+	test "el minion malo a lo producido se roba 20 bananas" {
+		assert.equals(30-20, minionMalo.ayuda())	
 	}
 }
