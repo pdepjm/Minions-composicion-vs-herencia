@@ -1,0 +1,11 @@
+import gru.*
+
+describe "gru" {
+	
+	test "gru al cosechar le pide ayuda a sus minions" {
+		gru.agregarMinion()
+		gru.cosechar()
+		
+		assert.equals(31, gru.bananas())	
+	}
+}
