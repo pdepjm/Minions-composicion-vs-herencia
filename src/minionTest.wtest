@@ -1,25 +1,43 @@
 import minion.*
+import gru.*
 
 describe "minion" {
 	var minionFeliz = new Minion(true)
 	var minionTriste = new Minion(false)
 	var minionBueno = new MinionBueno(true)
 	var minionMalo = new MinionMalo(true)
+	var minionSocialBueno = new MinionSocialBueno(true)
+	var minionSocialMalo = new MinionSocialMalo(true)
 	
-	test "al estar feliz ayuda dando 30 bananas" {
-		assert.equals(30, minionFeliz.ayuda())	
+	test "al estar feliz ayuda producciendo 30 bananas" {
+		minionFeliz.ayuda(gru, campo)
+		assert.equals(30, campo.produccion())	
 	}
 	
-	test "al no estar ayuda solo da 5 bananas" {
-		assert.equals(5, minionTriste.ayuda())	
+	test "al estar triste ayuda solo produciendo 5 bananas" {
+		minionTriste.ayuda(gru, campo)
+		assert.equals(5, campo.produccion())	
 	}
 	
-	test "el minion bueno produce un extra de 3 bananas" {
-		assert.equals(33, minionBueno.ayuda())	
+	test "el minion bueno al ayudar produce un extra de 3 bananas" {
+		minionBueno.ayuda(gru, campo)
+		assert.equals(33, campo.produccion())	
 	}
 	
+	test "el minion malo al ayudar se roba 20 bananas" {
+		minionMalo.ayuda(gru, campo)
+		assert.equals(30 - 20, campo.produccion())	
+	}
 	
-	test "el minion malo a lo producido se roba 20 bananas" {
-		assert.equals(30-20, minionMalo.ayuda())	
+	test "el minion social bueno al ayudar aumenta 2 veces el humor de gru" {
+		minionSocialBueno.ayuda(gru, campo)
+		assert.equals(6, gru.humor() )	
+	}
+	
+	test "el minion social malo al ayudar aumenta el humor de gru y le roba 5 bananas" {
+		campo.produccion(10)
+		minionSocialMalo.ayuda(gru, campo)
+		assert.equals(3, gru.humor())
+		assert.equals(5, campo.produccion())	
 	}
 }

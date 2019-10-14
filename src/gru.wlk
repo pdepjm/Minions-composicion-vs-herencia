@@ -5,14 +5,19 @@ object gru {
 	var property humor = 0
 	
 	method cosechar () {
-		campo.cosechar(minions.sum({minion => minion.ayuda()}) + 1)
+		minions.forEach({minion => minion.ayuda(gru, campo)})
+		campo.cosechar(1)
 	}
 	
 	method agregarMinion (minion) {
 		minions.add(minion)
 	}
 	
-	method felicidad() = humor + campo.produccion()	
+	method felicidad() = humor + campo.produccion()
+	
+	method contarleUnChiste() {
+		humor += 3
+	}
 }
 
 object campo {
@@ -20,5 +25,9 @@ object campo {
 	
 	method cosechar (bananas) {
 		produccion += bananas
+	}
+	
+	method robarCosecha (bananas) {
+		produccion = 0.max(produccion - bananas)
 	}
 }
