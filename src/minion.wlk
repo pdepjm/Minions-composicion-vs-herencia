@@ -3,16 +3,26 @@ import gru.*
 class Minion {
 	var property feliz
 	var comportamiento
-	var rol
 	
-	constructor(humor, estado, tipo) {
+	constructor(humor, estado) {
 		feliz = humor
 		comportamiento = estado
-		rol = tipo
 	}
 	
 	method ayuda () {
-		return rol.ayuda(feliz) + comportamiento.ayuda()
+		return self.ayudaPorRol() + comportamiento.ayuda()
+	} 
+}
+
+class Productor inherits Minion{
+	method ayudaPorRol() = if (feliz) 30 else 5 
+}
+
+class Social inherits Minion{
+	override method ayudaPorRol(){
+		gru.chiste() 
+		if (feliz) gru.chiste() 
+		return 0
 	} 
 }
 
@@ -24,14 +34,3 @@ object malo {
 	method ayuda() = -20
 }
 
-object productor {
-	method ayuda(esFeliz) = if (esFeliz) 30 else 5 
-}
-
-object social {
-	method ayuda(esFeliz){
-		gru.chiste() 
-		if (esFeliz) gru.chiste() 
-		return 0
-	} 
-}

@@ -3,12 +3,12 @@ import gru.*
 
 describe "Minion"{
 	test "productor bueno y feliz ayuda con 33 bananas" {
-		const productorBuenoFeliz = new Minion(true, bueno, productor) 
+		const productorBuenoFeliz = new Productor(true, bueno) 
 		assert.equals(33, productorBuenoFeliz.ayuda())
 	}
 	
 	test "social malo cuenta un chiste y se come 20 bananas" {
-		const socialMaloTriste = new Minion(false, malo, social)
+		const socialMaloTriste = new Social(false, malo)
 		gru.humor(0) 
 		assert.equals(-20, socialMaloTriste.ayuda())
 		assert.equals(3, gru.humor())
@@ -24,22 +24,22 @@ describe "Minion"{
 	}
 	
 	test "productor ayuda con 30 si esta feliz" {
-		assert.equals(30, productor.ayuda(true))	
+		assert.equals(30, new Productor(true, bueno).ayudaPorRol())	
 	}
 	
 	test "productor ayuda con 5 si no esta feliz" {
-		assert.equals(5, productor.ayuda(false))	
+		assert.equals(5, new Productor(false, bueno).ayudaPorRol())	
 	}
 	
 	test "social feliz levanta en 6 el humor de gru" {
 		gru.humor(0)
-		social.ayuda(true)
+		new Social(true, malo).ayudaPorRol()
 		assert.equals(6, gru.humor())	
 	}
 	
 	test "social triste levanta en 3 el humor de gru" {
 		gru.humor(0)
-		social.ayuda(false)
+		new Social(false, malo).ayudaPorRol()
 		assert.equals(3, gru.humor())	
 	}
 	

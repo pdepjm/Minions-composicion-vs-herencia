@@ -2,8 +2,8 @@ import minion.*
 import gru.*
 
 describe "Gru" {
-	var minionFeliz = new Minion(true, bueno, productor)
-	var minionTriste = new Minion(false, bueno, productor)
+	var minionFeliz = new Productor(true, bueno)
+	var minionTriste = new Productor(false, bueno)
 	
 	test "sin minions despues de cosechar solo produjo una banana" {
 		gru.cosechar()
