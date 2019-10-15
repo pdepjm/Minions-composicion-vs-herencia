@@ -1,22 +1,23 @@
 class Minion {
 	var property feliz
+	var comportamiento
 	
-	constructor(humor) {
+	constructor(humor, estado) {
 		feliz = humor
+		comportamiento = estado
 	}
 	
-	method ayuda () = if (feliz) 30 else 5
-	
+	method ayuda () {
+		var bananas = 30 
+		if (!feliz) bananas = 5
+		return bananas + comportamiento.ayuda()
+	} 
 }
 
-class MinionBueno inherits Minion {
-	
-	override
-	method ayuda () = super() + 3
+object bueno {
+	method ayuda() = 3
 }
 
-class MinionMalo inherits Minion {
-	
-	override
-	method ayuda () = super() - 20
+object malo {
+	method ayuda() = -20
 }

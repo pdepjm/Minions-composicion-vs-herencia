@@ -1,23 +1,36 @@
-import gru.*
 import minion.*
+import gru.*
 
-describe "gru" {
-	var minionFeliz = new Minion(true)
-	var minionTriste = new Minion(false)
+describe "Gru" {
+	var minionFeliz = new Minion(true, bueno)
+	var minionTriste = new Minion(false, bueno)
 	
-	test "al gru cosechar le pide ayuda a sus minions" {
-		gru.agregarMinion(minionFeliz)
+	test "sin minions despues de cosechar solo produjo una banana" {
 		gru.cosechar()
-		
-		assert.equals(31, campo.produccion())	
+		assert.equals(1, campo.produccion())	
 	}
 	
-	test "gru tiene una felicidad igual al humor mas la cantidad de bananas en el campo" {
+	test "con un minion cosecha lo suyo + lo del minion" {
+		const bananasObjetivo =  1 + minionFeliz.ayuda()
+		gru.agregarMinion(minionFeliz)
+		
+		gru.cosechar()
+		assert.equals(bananasObjetivo, campo.produccion())	
+	}
+	
+	test "cosecha con toda su prole" {
+		const bananasObjetivo =  1 + minionFeliz.ayuda() + minionTriste.ayuda()
 		gru.agregarMinion(minionFeliz)
 		gru.agregarMinion(minionTriste)
+		
 		gru.cosechar()
+		assert.equals(bananasObjetivo, campo.produccion())	
+	}
+	
+	test "tiene la felicidad esperada" {
+		const felicidadEsperada = 4 + campo.produccion() 
 		gru.humor(4)
 		
-		assert.equals(40, gru.felicidad())	
+		assert.equals(felicidadEsperada, gru.felicidad())	
 	}
 }
