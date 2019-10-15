@@ -1,16 +1,18 @@
+import gru.*
+
 class Minion {
 	var property feliz
 	var comportamiento
+	var rol
 	
-	constructor(humor, estado) {
+	constructor(humor, estado, tipo) {
 		feliz = humor
 		comportamiento = estado
+		rol = tipo
 	}
 	
 	method ayuda () {
-		var bananas = 30 
-		if (!feliz) bananas = 5
-		return bananas + comportamiento.ayuda()
+		return rol.ayuda(feliz) + comportamiento.ayuda()
 	} 
 }
 
@@ -20,4 +22,16 @@ object bueno {
 
 object malo {
 	method ayuda() = -20
+}
+
+object productor {
+	method ayuda(esFeliz) = if (esFeliz) 30 else 5 
+}
+
+object social {
+	method ayuda(esFeliz){
+		gru.chiste() 
+		if (esFeliz) gru.chiste() 
+		return 0
+	} 
 }

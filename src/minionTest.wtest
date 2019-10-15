@@ -1,21 +1,47 @@
 import minion.*
+import gru.*
 
 describe "Minion"{
-	var felizBueno  = new Minion(true, bueno)
-	var felizMalo   = new Minion(true, malo)
-	var tristeBueno = new Minion(false, bueno)
-	var tristeMalo  = new Minion(false, malo)
-		
-	test "bueno y feliz ayuda con 33 bananas" {
-		assert.equals(33, felizBueno.ayuda())
-	}	
-	test "malo y feliz ayuda con 10 bananas" {
-		assert.equals(10, felizMalo.ayuda())
-	}	
-	test "triste y bueno ayuda con 8 bananas" {
-		assert.equals(8, tristeBueno.ayuda())	
+	test "productor bueno y feliz ayuda con 33 bananas" {
+		const productorBuenoFeliz = new Minion(true, bueno, productor) 
+		assert.equals(33, productorBuenoFeliz.ayuda())
 	}
-	test "triste y malo se come 15 bananas" {
-		assert.equals(-15, tristeMalo.ayuda())	
+	
+	test "social malo cuenta un chiste y se come 20 bananas" {
+		const socialMaloTriste = new Minion(false, malo, social)
+		gru.humor(0) 
+		assert.equals(-20, socialMaloTriste.ayuda())
+		assert.equals(3, gru.humor())
+	}	
+
+	
+	test "alguien bueno ayuda con 3 bananas" {
+		assert.equals(3, bueno.ayuda())	
 	}
+	
+	test "alguien malo come 20 bananas" {
+		assert.equals(-20, malo.ayuda())	
+	}
+	
+	test "productor ayuda con 30 si esta feliz" {
+		assert.equals(30, productor.ayuda(true))	
+	}
+	
+	test "productor ayuda con 5 si no esta feliz" {
+		assert.equals(5, productor.ayuda(false))	
+	}
+	
+	test "social feliz levanta en 6 el humor de gru" {
+		gru.humor(0)
+		social.ayuda(true)
+		assert.equals(6, gru.humor())	
+	}
+	
+	test "social triste levanta en 3 el humor de gru" {
+		gru.humor(0)
+		social.ayuda(false)
+		assert.equals(3, gru.humor())	
+	}
+	
+	
 }

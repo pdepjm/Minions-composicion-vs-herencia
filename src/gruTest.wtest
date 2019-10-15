@@ -2,8 +2,8 @@ import minion.*
 import gru.*
 
 describe "Gru" {
-	var minionFeliz = new Minion(true, bueno)
-	var minionTriste = new Minion(false, bueno)
+	var minionFeliz = new Minion(true, bueno, productor)
+	var minionTriste = new Minion(false, bueno, productor)
 	
 	test "sin minions despues de cosechar solo produjo una banana" {
 		gru.cosechar()
@@ -32,5 +32,11 @@ describe "Gru" {
 		gru.humor(4)
 		
 		assert.equals(felicidadEsperada, gru.felicidad())	
+	}
+	
+	test "al contarle un chiste gru esta mas feliz" {
+		gru.chiste()
+		
+		assert.equals(3, gru.humor())	
 	}
 }
