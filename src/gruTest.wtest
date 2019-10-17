@@ -1,7 +1,7 @@
 import gru.*
 import minion.*
 
-describe "gru" {
+describe "el gru" {
 	var minionFeliz = new Minion(true)
 	var minionTriste = new Minion(false)
 	

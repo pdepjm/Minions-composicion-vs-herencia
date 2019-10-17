@@ -5,7 +5,7 @@ object gru {
 	var property humor = 0
 	
 	method cosechar () {
-		minions.forEach({minion => minion.ayuda(gru, campo)})
+		minions.forEach({minion => minion.ayuda(self, campo)})
 		campo.cosechar(1)
 	}
 	
